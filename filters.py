@@ -39,6 +39,7 @@ class AttributeFilter:
     Concrete subclasses can override the `get` classmethod to provide custom
     behavior to fetch a desired attribute from the given `CloseApproach`.
     """
+
     def __init__(self, op, value):
         """Construct a new `AttributeFilter` from an binary predicate and a reference value.
 
@@ -70,46 +71,47 @@ class AttributeFilter:
         raise UnsupportedCriterionError
 
     def __repr__(self):
+        """Represent magic method."""
         return f"{self.__class__.__name__}(op=operator.{self.op.__name__}, value={self.value})"
 
 class DateFilter(AttributeFilter):
-    """Custom class to filter approact Dates"""
+    """Custom class to filter approact Dates."""
 
     @classmethod
     def get(cls, approach):
-        """Return time attribute of the approach object"""
+        """Return time attribute of the approach object."""
         return approach.time.date()
 
 class DistanceFilter(AttributeFilter):
-    """Custome class to filter approach distance"""
+    """Custome class to filter approach distance."""
     
     @classmethod
     def get(cls, approach):
-        """Return distance attribute of the approach object"""
+        """Return distance attribute of the approach object."""
         return approach.distance
 
 class VelocityFilter(AttributeFilter):
-    """Custom class to filter approach velocity"""
+    """Custom class to filter approach velocity."""
 
     @classmethod
     def get(cls, approach):
-        """Return velocity attribute of the approach object"""
+        """Return velocity attribute of the approach object."""
         return approach.velocity
 
 class DiameterFilter(AttributeFilter):
-    """Custom class to filter approach diameter"""
+    """Custom class to filter approach diameter."""
 
     @classmethod
     def get(cls, approach):
-        """Return diameter attribute of the approach object"""
+        """Return diameter attribute of the approach object."""
         return approach.neo.diameter
 
 class HazardousFilter(AttributeFilter):
-    """Custom class to filter approach hazardous"""
+    """Custom class to filter approach hazardous."""
 
     @classmethod
     def get(cls, approach):
-        """Return the hazadous attribute of the approach object"""
+        """Return the hazadous attribute of the approach object."""
         return approach.neo.hazardous
 
 def create_filters(
@@ -148,7 +150,6 @@ def create_filters(
     :param hazardous: Whether the NEO of a matching `CloseApproach` is potentially hazardous.
     :return: A collection of filters for use with `query`.
     """
-
     filters = list()
 
     if date:
@@ -184,6 +185,6 @@ def limit(iterator, n=None):
     :yield: The first (at most) `n` values from the iterator.
     """
     if n != 0 and n is not None:
-        return list(itertools.islice(iterator, 0, n))
+        return itertools.islice(iterator, 0, n)
     else:
         return iterator

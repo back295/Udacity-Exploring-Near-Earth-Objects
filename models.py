@@ -32,6 +32,7 @@ class NearEarthObject:
     initialized to an empty collection, but eventually populated in the
     `NEODatabase` constructor.
     """
+
     def __init__(self, **info):
         """Create a new `NearEarthObject`.
 
@@ -48,7 +49,6 @@ class NearEarthObject:
     @property
     def fullname(self):
         """Return a representation of the full name of this NEO."""
-
         if self.name:
             return f"{self.designation} ({self.name})"
         else:
@@ -56,7 +56,6 @@ class NearEarthObject:
 
     def __str__(self):
         """Return `str(self)`."""
-
         return f"NEO {self.name} has a diameter of {self.diameter:.3f} km " \
                f"and is {'not' if not self.hazardous else ''} potentially hazardous" 
 
@@ -66,6 +65,7 @@ class NearEarthObject:
                f"diameter={self.diameter:.3f}, hazardous={self.hazardous!r})"
     
     def serialize(self):
+        """Serialize some attributes of NEO object."""
         return {
             "designation": self.designation,
             "name": self.name,
@@ -87,12 +87,12 @@ class CloseApproach:
     private attribute, but the referenced NEO is eventually replaced in the
     `NEODatabase` constructor.
     """
+
     def __init__(self, **info):
         """Create a new `CloseApproach`.
 
         :param info: A dictionary of excess keyword arguments supplied to the constructor.
         """
-
         self._designation = info.get("designation")
         self.time = info.get("time")
         if self.time:
@@ -129,9 +129,11 @@ class CloseApproach:
 
     @property
     def get_desigation(self):
+        """Return CloseApproach desigation."""
         return self.designation
 
     def serialize(self):
+        """Serialize some attributes of CloseApproach object."""
         return {
             "datetime_utc" : self.time_str,
             "distance_au": self.distance,
